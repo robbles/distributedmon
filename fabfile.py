@@ -135,9 +135,9 @@ def install_crontab():
     """
     Installs a cron entry on the remote machine that runs the status sync script
     """
-    # Create crontab file with echo
+    # TODO: Create crontab file with echo
 
-    # Call crontab [file] to install
+    # TODO: Call crontab [file] to install
     pass
 
     
@@ -159,6 +159,7 @@ def sync_status():
 
     # Pull remote server's status files using rsync
     local('rsync -uv -e "ssh -i %(key_filename)s" %(user)s@%(host_string)s:./status/* ./status/' % env)
+    local('date > ./status/last_sync')
 
 
 @runs_once
