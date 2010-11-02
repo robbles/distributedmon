@@ -117,7 +117,7 @@ def install_fabric():
 
 
 @utils.unreliable
-def update_fabfile():
+def update_files():
     from fabric.state import connections
     sys.path.append(os.path.dirname(__file__))
     from scp import SCPClient
