@@ -51,10 +51,8 @@ def ping(host, timeout):
 
 # Patch fabric's password prompting
 def throw_up(*args):
-    try:
-        return fabric.network.original_prompt(*args)
-    except KeyboardInterrupt:
-        raise SystemExit
+    puts('Host is asking for different password, failing...')
+    raise SystemExit
 fabric.network.original_prompt = fabric.network.prompt_for_password
 fabric.network.prompt_for_password = throw_up
         
