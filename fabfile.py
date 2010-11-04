@@ -3,7 +3,7 @@ from fabric.api import *
 from fabric.contrib.files import exists, contains, append
 from fabric.state import connections
 import fabric.network
-import sys, os, urllib, contextlib, functools, subprocess
+import sys, os, urllib, contextlib, functools, subprocess, make_html
 
 # Make sure we're working in the same directory as fabfile.py
 fabdir = os.path.dirname(env.real_fabfile)
@@ -163,7 +163,7 @@ def sync_status():
     # Write out status if failed to contact server
     if not host_up:
         status_file = './status/status_%(host_string)s.txt' % env
-        local('echo DOWN >> %s' % status_file)  
+        local('echo DOWN at `date` > %s' % status_file)  
         return
 
     # Pull remote server's status files using scp
@@ -178,7 +178,7 @@ def sync_status():
     local('date > ./status/last_sync' % env)
 
     # TODO: build html from statuses and save atomically?
-
+    make_html.dump()	
 
 def random_sync():
     """
